@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  zabbix-agent:
+    image: zabbix/zabbix-agent:latest
+    environment:
+      ZBX_HOSTNAME: "g_zabbix"
+      ZBX_START_AGENTS: 3
+      ZBX_SERVER_HOST: ""
+    ports:
+      - "10050:10050"
+    networks:
+      - zabbix2_default
+    labels:
+      - "traefik.enable=false"
+  zabbix-snmptraps:
+    image: zabbix/zabbix-snmptraps:latest
+    networks:
+      - zabbix2_default
+    ports:
+      - "162:162"
+
+    labels:
+      - "traefik.enable=false"
+networks:
+  zabbix2_default:
+    external: true

@@ -1,0 +1,27 @@
+version: '3.4'
+services:
+  zabbix-proxy:
+    image: zabbix/zabbix-proxy-sqlite3:alpine-4.2.2
+    network_mode: zabbix-net
+    ports:
+      - "10051:10051"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /app/zabbix-proxy:/usr/lib/zabbix/:rw
+    environment:
+      ZBX_HOSTNAME: zabbix-proxy
+      ZBX_SERVER_HOST: "zabbix.evoluservices.com"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    mem_limit: 1024m
+    user: root
+    labels:
+      com.zabbix.description: "Zabbix proxy suporte a base de dados SQLite3"
+      com.zabbix.company: "Zabbix SIA"
+      com.zabbix.component: "zabbix-proxy"
+      com.zabbix.dbtype: "sqlite3"
+      com.zabbix.os: "centos"
