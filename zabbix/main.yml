@@ -1,0 +1,10 @@
+---
+- hosts:  all
+  roles:
+   - roles
+  vars:
+    PYTHON: ""
+    INSTALLZABBIX: ""
+    AUTODISCOVER: ""
+    MONITORAMENTO: ""
+    CONF: ""

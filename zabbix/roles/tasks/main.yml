@@ -1,0 +1,26 @@
+---
+- name: install Python
+  import_tasks: func/install-python.yml
+  when:
+    - PYTHON == "PYTHON"
+
+- name: install agent zabbix
+  import_tasks: func/install-agent-zabbix.yml
+  when:
+    - AGENTZABBIX == "AGENTZABBIX"
+
+- name: Install on autodiscovery_zabbix
+  import_tasks: func/autodiscovery_zabbix.yml
+  when:
+    - AUTODISCOVER == "yes"
+
+- name: Colocando a maquina no monitoramento
+  import_tasks: func/monitoring.yml
+  when:
+    - MONITORING == "MONITORING"
+
+- name: Iniciar agente zabbix
+  service:
+    name: zabbix-agent
+    state: restarted
+    enabled: yes

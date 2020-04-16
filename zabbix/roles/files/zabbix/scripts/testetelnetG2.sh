@@ -1,0 +1,5 @@
+#!/bin/bash
+
+TELNETPROXYREVERSO=$(nc -w 0 172.30.96.231 22063; echo $?)
+
+echo $TELNETPROXYREVERSO

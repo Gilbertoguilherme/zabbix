@@ -1,0 +1,30 @@
+---
+- name: Registro do nome da maquina
+  shell: hostname
+  register: hname
+
+- name: Registro de IP
+  shell: hostname -I | awk '{print $1}'
+  register: hip
+
+- name: Colocando a maquina no monitoramento
+  local_action:
+    module: zabbix_host
+    server_url: http://172.32.2.131
+    login_user: zabbix
+    login_password: 5XSmbMGIAvSM
+    host_name: '{{ hname.stdout }}'
+    visible_name: '{{ hname.stdout }}'
+    description: Instalacao e configuracao via ansible
+    host_groups:
+      - Linux servers
+    link_templates:
+      - Template OS Linux
+    status: enabled
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 1
+        ip: '{{ hip.stdout }}'
+        dns: ""
+        port: 10050

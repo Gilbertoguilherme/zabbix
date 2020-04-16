@@ -1,0 +1,3 @@
+Defaults:zabbix !requiretty
+zabbix ALL=(ALL) NOPASSWD: ALL #/etc/zabbix/bin/tcp_services, /etc/zabbix/bin/udp_services
+
